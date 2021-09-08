@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>成交量倍增策略</title>
+
+	{% include "header.html" %}
+
+	{% load static %}
+
+</head>
+
+<body class="bg-cyan"  style="background-image: url({% static 'background1.jpg' %}), url({% static 'background2.jpg' %});  background-size:20% 20%;background-repeat:no-repeat; background-position:left top,right top;">
+	
+	<div class="body body-s">
+		<div class="font_bk"> 
+			<h4>成交量倍增策略:</h3>
+			<h5>一姐提供的成交量暴涨策略，最近短时间内平均成交量是之前长时间内平均成交量的几倍多，表示行情来了</h5> 
+			<br>
+			
+			
+		</div>
+		<form id="sky-form" class="sky-form" autocomplete="off" action="" method="post" target="id_iframe" onsubmit="return check()">
+			{% csrf_token %}
+			<header><b>成交量倍增策略</b></header>
+			<fieldset>	
+				<section>
+					<label class="select">
+						<select name="env" id="env">
+							<option value="USA">美股</option>
+							<option value="CN">A股</option>
+						</select>
+						<i></i>
+					</label>
+				</section>
+				
+				<section>
+					<label id="label4"><b>公司市值(亿):</b></label>
+					<br />
+					{{ volume_form.total_asset }}
+				</section>
+
+				<section>
+					<label id="label1"><b>短期平均成交量天数(天):</b></label>
+					<br />
+					{{ volume_form.short_xd }}
+				</section>
+
+				<section>
+					<label id="label2"><b>长期平均成交量天数(天):</b></label>
+					<br />
+					{{ volume_form.long_xd }}
+				</section>
+
+				<section>
+					<label id="label3"><b>短期平均成交量是长期的倍数(正数为大于，负数为小于):</b></label>
+					<br />
+					{{ volume_form.times }}
+				</section>
+				<section>
+					<label id="label3"><b>短期平均价格是长期的倍数:</b></label>
+					<br />
+					{{ volume_form.price_times }}
+				</section>
+				
+
+				<br />
+				<input  name="submit" type="submit" class="button" value="提交修改(Submit)">
+			</fieldset>
+
+
+			<footer>   
+				<h3>结果(Result)</h3> 
+				<iframe id="id_iframe" name="id_iframe"  onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"  width="1040" height="500" frameborder="no" border="0" scrolling="no" src="about:blank"></iframe>
+			</footer>
+			</form>
+
+			
+
+	
+
+	</div>
+</body>
+
+</html>

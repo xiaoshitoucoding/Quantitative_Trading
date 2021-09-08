@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html> 
+<html>
+	<head>
+		<title>GM工具</title>
+		
+		{% include "header.html" %}
+	</head>
+	
+	<body class="bg-cyan" >
+		<div class="body body-s">	
+			<form  enctype="multipart/form-data" id="sky-form" class="sky-form" autocomplete="off" action="" method="post" target="id_iframe" onsubmit="return check()">
+			{% csrf_token %}	
+				<header><b>GM指令</b></header>
+				
+				{% include "serverlist.html" %}
+				 <fieldset>
+					 <a href="getGameNick.html"  ><b>查询(Search)PlayerId<b></a>
+					 <section>
+						<b>发送指令</b>
+						<label class="select">
+					    <select name="cmd" onchange= "changeUI(this.options[this.options.selectedIndex].value)">
+                            <option value="GOD">GOD</option>
+                            <option value="SKIP_NEWBIE">跳过新手引导(Skip tutorial)</option>
+                            <option value="BR_ADD_TIME">增加BR累计存活时间</option>
+                            <option value="MP_ADD_TIME">增加MP累计存活时间</option>
+                            <option value="GAME_WIN">赢一局</option>
+							<option value="GAME_LOSE">输一局</option>
+							<option value="BR_ADD_KILL">增加BR局内杀敌数</option>
+							<option value="MP_ADD_KILL">增加MP局内杀敌数</option>
+							<option value="PVE_ADD_KILL">增加PVE局内杀僵尸数</option>
+							<option value="PVE_ADD_DOGTAG">增加PVE局内狗牌数</option>
+                            <option value="CLEAR_LEADERBOARD">清除排行榜</option>
+                            <option value="ADD_BOT_TO_LEADERBOARD">加机器人到排行榜</option>
+                            <option value="UPDATE_RANK_VALUE">更改排行榜数值</option>
+                            <option value="GET_LEADERBOARD">获取排行榜TopN</option>
+                            <option value="KILL_ALL_ENEMY">击杀所有敌人</option>
+							<option value="SET_MP_PRESSURE">设置MP压力值</option>
+							<option value="SET_BR_LADDER_WARM">设置BR排位温暖值</option>
+							<option value="SET_MP_JMP_PUB_POOL">设置MP进公共池累计值</option>
+							<option value="SET_RECENT_MAP">设置MP排位最近使用的地图</option>
+							<option value="SET_MP_RECENT_MAP">设置MP匹配最近使用的地图</option>
+							<option value="SELF_DEF">自定义指令</option>
+                        </select>
+							<i></i>
+						</label>
+					</section>
+
+                     <section>
+					    <label id="label3"><b>PlayerId</b></label>
+						<label class="input">
+						<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+							<input id="textedit3" type="text" name="account_value" value="">
+						</label>
+					</section>
+
+
+					 <section>
+					    <label id="para_value1_label" style="display:none"><b>参数值1</b></label>
+						<label class="input">
+						<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+							<input id="para_value1_textedit" style="display:none" type="text" name="param1" value="">
+						</label>
+					</section>
+
+                     <section>
+					    <label id="para_value2_label" style="display:none"><b>参数值2(Value2)</b></label>
+						<label class="input">
+						<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+							<input id="para_value2_textedit" style="display:none" type="text" name="param2" value="">
+						</label>
+					</section>
+
+                     <section>
+					    <label id="para_value3_label" style="display:none"><b>参数值3</b></label>
+						<label class="input">
+						<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+							<input id="para_value3_textedit" style="display:none" type="text" name="param3" value="">
+						</label>
+					</section>
+
+                     <section>
+					    <label id="para_value4_label" style="display:none"><b>参数值4</b></label>
+						<label class="input">
+						<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+							<input id="para_value4_textedit" style="display:none" type="text" name="param4" value="">
+						</label>
+					</section>
+
+					<input name="submit" type="submit" class="button" value="执行">
+				</fieldset>
+			
+				<footer>   
+                        <h3>结果(Result)</h3> 
+                        <iframe id="id_iframe" name="id_iframe"  onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"  width="850"  frameborder="no" border="0" scrolling="no" src="about:blank"></iframe>
+				</footer>
+
+			</form>			
+	  </div>
+<script type="text/javascript">
+var picindex=3;
+function check()
+{
+	return true;
+}
+
+
+
+function changeUI(val)
+{
+/*
+                            <option value="GOD">GOD</option>
+                            <option value="SKIP_NEWBIE">跳过新手引导(Skip tutorial)</option>
+                            <option value="BR_ADD_TIME">增加BR累计存活时间</option>
+                            <option value="MP_ADD_TIME">增加MP累计存活时间</option>
+                            <option value="BR_WIN">赢一局BR</option>
+							<option value="BR_LOSE">输一局BR</option>
+							<option value="MP_WIN">赢一局MP</option>
+							<option value="MP_LOSE">输一局MP</option>
+							<option value="PVE_SKIP_CP">跳过PVE的关卡</option>
+							<option value="BR_ADD_KILL">增加BR局内杀敌数</option>
+							<option value="MP_ADD_KILL">增加MP局内杀敌数</option>
+							<option value="PVE_ADD_KILL">增加PVE局内杀僵尸数</option>
+							<option value="PVE_ADD_DOGTAG">增加PVE局内狗牌数</option>
+*/
+  /*默认全不不适用参数*/
+            document.getElementById("label3").innerHTML="<b>PlayerId</b>";
+            document.getElementById("label3").style.display="";
+			document.getElementById("textedit3").style.display="";
+
+  			document.getElementById("para_value1_label").innerHTML="";
+            document.getElementById("para_value1_label").style.display="none";
+			document.getElementById("para_value1_textedit").style.display="none";
+
+			document.getElementById("para_value2_label").innerHTML="";
+            document.getElementById("para_value2_label").style.display="none";
+			document.getElementById("para_value2_textedit").style.display="none";
+
+            document.getElementById("para_value3_label").innerHTML="";
+            document.getElementById("para_value3_label").style.display="none";
+			document.getElementById("para_value3_textedit").style.display="none";
+
+            document.getElementById("para_value4_label").innerHTML="";
+            document.getElementById("para_value4_label").style.display="none";
+			document.getElementById("para_value4_textedit").style.display="none";
+
+  switch(val)
+  {
+  	 case 'GOD':
+			document.getElementById("para_value1_label").innerHTML="";
+            document.getElementById("para_value1_label").style.display="none";
+			document.getElementById("para_value1_textedit").style.display="none";
+  	 		break;
+
+  	 case 'SKIP_NEWBIE':
+			document.getElementById("para_value1_label").innerHTML="";
+            document.getElementById("para_value1_label").style.display="none";
+			document.getElementById("para_value1_textedit").style.display="none";
+  	 		break;
+
+	 case 'BR_ADD_TIME':
+			document.getElementById("para_value1_label").innerHTML="<b>BR模式增加存活的秒数(填数字)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+	
+	  case 'MP_ADD_TIME':
+			document.getElementById("para_value1_label").innerHTML="<b>MP模式增加存活的秒数(填数字)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+			 
+	  case 'GAME_WIN':
+	  case 'GAME_WIN':
+      case 'KILL_ALL_ENEMY':
+			document.getElementById("para_value1_label").innerHTML="";
+            document.getElementById("para_value1_label").style.display="none";
+			document.getElementById("para_value1_textedit").style.display="none";
+  	 		break;
+
+	  case 'PVE_SKIP_CP':
+			document.getElementById("para_value1_label").innerHTML="<b>PVE模式转到哪一关(填数字)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+
+	  case 'BR_ADD_KILL':
+			document.getElementById("para_value1_label").innerHTML="<b>BR模式，加局内杀敌数(填数字)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+
+	  case 'MP_ADD_KILL':
+	        document.getElementById("para_value1_label").innerHTML="<b>MP模式，加局内杀敌数(填数字)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+
+	 case 'PVE_ADD_KILL':
+	        document.getElementById("para_value1_label").innerHTML="<b>PVE模式，加局内杀僵尸(填数字)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+
+	  case 'PVE_ADD_DOGTAG':
+	        document.getElementById("para_value1_label").innerHTML="<b>PVE模式，增加局内狗牌数(填数字)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+
+	  case 'SELF_DEF':
+			document.getElementById("para_value1_label").innerHTML="<b>自定义输入参数(用|分割,如 addTime|BR|1000)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+
+      case 'CLEAR_LEADERBOARD':
+            document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+            document.getElementById("para_value1_label").innerHTML="<b>排行榜id(如狗牌填1003,单任务1004，多任务1005)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+
+      case 'ADD_BOT_TO_LEADERBOARD':
+
+            document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+            document.getElementById("para_value1_label").innerHTML="<b>排行榜id(如狗牌填1003,单任务1004，多任务1005)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+
+            document.getElementById("para_value2_label").innerHTML="<b>增加机器人数量(填数值)</b>";
+            document.getElementById("para_value2_label").style.display="";
+			document.getElementById("para_value2_textedit").style.display="";
+
+            document.getElementById("para_value3_label").innerHTML="<b>排行榜起始值(填数值)</b>";
+            document.getElementById("para_value3_label").style.display="";
+			document.getElementById("para_value3_textedit").style.display="";
+
+            document.getElementById("para_value4_label").innerHTML="<b>递减幅度(填数值)</b>";
+            document.getElementById("para_value4_label").style.display="";
+			document.getElementById("para_value4_textedit").style.display="";
+	        break;
+
+      case 'UPDATE_RANK_VALUE':
+            document.getElementById("para_value1_label").innerHTML="<b>排行榜类型：1奖牌,2单任务,3多任务</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+
+            document.getElementById("para_value2_label").innerHTML="<b>排行榜数值</b>";
+            document.getElementById("para_value2_label").style.display="";
+			document.getElementById("para_value2_textedit").style.display="";
+
+			document.getElementById("para_value3_label").innerHTML="<b>活动id(填数值)</b>";
+            document.getElementById("para_value3_label").style.display="";
+			document.getElementById("para_value3_textedit").style.display="";
+	        break;
+
+      case 'GET_LEADERBOARD':
+            document.getElementById("para_value1_label").innerHTML="<b>排行榜id(如狗牌填1003,单任务1004，多任务1005)</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+
+            document.getElementById("para_value2_label").innerHTML="<b>排行榜第几页(填数字，0是第一页)</b>";
+            document.getElementById("para_value2_label").style.display="";
+			document.getElementById("para_value2_textedit").style.display="";
+	        break;
+
+	  case 'SET_MP_PRESSURE':
+            document.getElementById("para_value1_label").innerHTML="<b>设置MP模式的压力值，填数字，填0表示查询当前值</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+
+	  case 'SET_BR_LADDER_WARM':
+            document.getElementById("para_value1_label").innerHTML="<b>设置BR 排位模式的温暖值，填数字，填0表示查询当前值</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+	  case 'SET_MP_JMP_PUB_POOL':
+            document.getElementById("para_value1_label").innerHTML="<b>设置MP 进入公共池累计值，填数字，填0表示查询当前值</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+	  case 'SET_RECENT_MAP':
+            document.getElementById("para_value1_label").innerHTML="<b>设置MP 进入公共池累计值，填地图的10进制id，多个地图id，用|分割</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+	  case 'SET_MP_RECENT_MAP':
+            document.getElementById("para_value1_label").innerHTML="<b>设置MP 匹配最近打的地图，填地图的10进制id，多个地图id，用|分割</b>";
+            document.getElementById("para_value1_label").style.display="";
+			document.getElementById("para_value1_textedit").style.display="";
+	        break;
+  }
+
+}
+
+</script>	
+</body>
+</html>

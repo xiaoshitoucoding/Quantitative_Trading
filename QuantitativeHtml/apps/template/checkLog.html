@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html> 
+<html>
+	<head>
+		<title>日志检测</title>
+		
+		{% include "header.html" %}
+	</head>
+	
+	<body class="bg-cyan" >
+		<div class="body body-s">	
+			<form  enctype="multipart/form-data" id="sky-form" class="sky-form" autocomplete="off" action="" method="post" target="id_iframe" >
+			{% csrf_token %}
+				<header><b>日志检测</b></header>
+
+				{% include "serverlist.html" %}
+				<fieldset>
+					<section>
+						<label id="label2"><b>日志根目录，一般不需要修改</b></label>
+						<label class="input">
+						<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+							<input id="textedit2" type="text" name="root_log" value="/data/home/user00/">
+						</label>
+					</section>
+					<section>
+						<label id="label3"><b>检索日志范围，一般不需要修改</b></label>
+						<label class="input">
+						<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+							<input id="textedit3" type="text" name="log_range" value="0-1">
+						</label>
+					</section>
+					<section>
+						<b>日志后缀</b>
+						<label class="select">
+						<select name="log_suffix" onchange= "changeModeUI(this.options[this.options.selectedIndex].value)">
+							<option value="log">普通日志 .log </option>
+							<option value="game">经分日志 .game </option>
+							<option value="error">错误日志 .error </option>
+							<option value="access">access .access</option>
+							<option value="access2">access2 .access2</option>
+							<option value="keyproc">关键日志 .keyproc</option>
+							<option value="stat">状态日志 .stat</option>
+						</select>
+							<i></i>
+						</label>
+					</section>
+					<a href="parseGameLog.html"  ><b>经分日志解释<b></a>
+					 <section>
+							<b>相关模块</b>
+							<label class="select">
+							<select name="mode_type" onchange= "changeOpUI(this.options[this.options.selectedIndex].value)">
+								<option value="grouproomsvrd">grouproomsvrd</option>
+								<option value="allocmgrsvrd">allocmgrsvrd</option>
+								<option value="brladdermatchsvrd">brladdermatchsvrd</option>
+								<option value="brmatchmakingsvrd">brmatchmakingsvrd</option>
+								<option value="matchmakingsvrd">matchmakingsvrd</option>
+								<option value="laddermatchsvrd">laddermatchsvrd</option>
+								<option value="matchbotsvrd">matchbotsvrd</option>
+								<option value="matchroomsvrd">matchroomsvrd</option>
+								<option value="es">es</option>
+								<option value="aassvrd">aassvrd</option>
+								<option value="abtestsvrd">abtestsvrd</option>
+								<option value="accountextsvrd">accountextsvrd</option>
+								<option value="accountsvrd">accountsvrd</option>
+								<option value="achievementsvrd">achievementsvrd</option>
+								<option value="activitysvrd">activitysvrd</option>
+								<option value="advertisingsvrd">advertisingsvrd</option>
+								<option value="announcementsvrd">announcementsvrd</option>
+								<option value="apollosvrd">apollosvrd</option>
+								<option value="attendsvrd">attendsvrd</option>
+								<option value="battlepasssvrd">battlepasssvrd</option>
+								<option value="boxshopsvrd">boxshopsvrd</option>
+								<option value="cachesvrd">cachesvrd</option>
+								<option value="cardsvrd">cardsvrd</option>
+								<option value="chatsvrd">chatsvrd</option>
+								<option value="configuresvrd">configuresvrd</option>
+								<option value="confsvrd">confsvrd</option>
+								<option value="crosssvrd">crosssvrd</option>
+								<option value="dataminingsvrd">dataminingsvrd</option>
+								<option value="dbsvrd">dbsvrd</option>
+								<option value="dslogsvrd">dslogsvrd</option>
+								<option value="dspingsvrd">dspingsvrd</option>
+								<option value="friendmanagesvrd">friendmanagesvrd</option>
+								<option value="gamefriend">gamefriend</option>
+								<option value="gamefriendcache">gamefriendcache</option>
+								<option value="gamefriendlist">gamefriendlist</option>
+								<option value="gamerecordsvrd">gamerecordsvrd</option>
+								<option value="gmsvrd">gmsvrd</option>
+								<option value="grcachesvrd">grcachesvrd</option>
+								<option value="gsplikesvrd">gsplikesvrd</option>
+								<option value="gsprealtimesvrd">gsprealtimesvrd</option>
+								<option value="gsproomsvrd">gsproomsvrd</option>
+								<option value="gspsvrd">gspsvrd</option>
+								<option value="guildcachesvrd">guildcachesvrd</option>
+								<option value="guildsvrd">guildsvrd</option>
+								<option value="gunmissionsvrd">gunmissionsvrd</option>
+								<option value="httpaccesssvrd">httpaccesssvrd</option>
+								<option value="httpsvrd">httpsvrd</option>
+								<option value="idipsvrd">idipsvrd</option>
+								<option value="inventorysvrd">inventorysvrd</option>
+								<option value="invitenewbiesvrd">invitenewbiesvrd</option>
+								<option value="levelupmissionsvrd">levelupmissionsvrd</option>
+								<option value="lobbysvrd">lobbysvrd</option>
+								<option value="luasvrd">luasvrd</option>
+								<option value="luckyboxsvrd">luckyboxsvrd</option>
+								<option value="mailsvrd">mailsvrd</option>
+								<option value="memosvrd">memosvrd</option>
+								<option value="onlinecntsvrd">onlinecntsvrd</option>
+								<option value="onlinestatcachesvrd">onlinestatcachesvrd</option>
+								<option value="paysvrd">paysvrd</option>
+								<option value="playerguildsvrd">playerguildsvrd</option>
+								<option value="playermatchrecommendsvrd">playermatchrecommendsvrd</option>
+								<option value="pvelevelsvrd">pvelevelsvrd</option>
+								<option value="pvematchmakingsvrd">pvematchmakingsvrd</option>
+								<option value="rankcachesvrd">rankcachesvrd</option>
+								<option value="ranksvrd">ranksvrd</option>
+								<option value="shopsvrd">shopsvrd</option>
+								<option value="statesvrd">statesvrd</option>
+								<option value="uicsvrd">uicsvrd</option>
+								<option value="unlocksvrd">unlocksvrd</option>
+								<option value="urlsvrd">urlsvrd</option>
+								<option value="wchatmgrsvrd">wchatmgrsvrd</option>
+								<option value="wchatnodesvrd">wchatnodesvrd</option>
+								<option value="zonerankcachesvrd">zonerankcachesvrd</option>
+								<option value="zoneranksvrd">zoneranksvrd</option>
+							</select>
+								<i></i>
+							</label>
+					</section>
+
+				 <section>
+					<label id="label1"><b>过滤条件，如有多项，用“|”分割，有空格，要用“”括住，如 "20200711 12:13:11"|12121212112121</b></label>
+					<label class="input">
+					<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+						<input id="textedit1" type="text" name="filter_value" value="">
+					</label>
+				</section>
+				<section>
+					<label id="start_date_lable" style="display:none"><b>启动游戏时间，要精确到小时，分钟填错也没关系</b></label>
+					<label class="input">
+						<input type="datetime-local" id="start_date" style="display:none" name="start_date_value">
+					</label>
+				</section>
+
+
+				 <section>
+					<label id="room_id_lable" style="display:none"><b>战斗房间id</b></label>
+					<label class="input">
+					<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+						<input id="room_id_textedit" type="text" style="display:none" name="room_id_value" value="">
+					</label>
+				</section>
+
+					 <section>
+							<b>具体操作</b>
+							<label class="select">
+							<select name="op_type" onchange= "changeModeUI(this.options[this.options.selectedIndex].value)">
+								<option value="check">检索日志</option>
+							</select>
+								<i></i>
+							</label>
+						    <input name="levelsm" type="submit" class="button" value="执行">
+					</section>
+				 </fieldset>
+
+			</form>			
+		</div>
+		<div>
+			<h3>关键字说明</h3>
+			<h4>grouproomsvrd</h4>
+			<li>玩家操作："Player Action"</li>
+			<h4>matchmakingsvrd/laddermatchsvrd/brmatchmakingsvrd/brladdermatchsvrd</h4>
+			<li>匹配开始："Convert from"</li>
+			<li>匹配成功："Produce match succ"</li>
+			<h4>matchroomsvrd</h4>
+			<li>开局流程："PlayerAction"</li>
+			<li>局内通信："DS Action"</li>
+			<li>中途加入："half join"</li>
+			<li>是否启用AILab："IsAIAvailable"</li>
+			<li>ailab温暖局和ailab快递投放参数："ai lab"</li>
+			<h4>matchbotsvrd</h4>
+			<li>匹配bot参数："Random bot succ"</li>
+			<h4>allocmgrsvrd</h4>
+			<li>ailab温暖局参数："ai lab"</li>
+		</div>
+	<footer>
+			<h3>结果(Result)</h3>
+			<iframe id="id_iframe" name="id_iframe"  onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"  width="8192" height="1080" frameborder="no" border="0" scrolling="no" src="about:blank"></iframe>
+	</footer>
+<script type="text/javascript">
+
+function changeOpUI(val)
+{
+	switch(val)
+	{
+	case 'es':
+		document.getElementById("start_date_lable").innerHTML="<b>启动游戏日期</b>";
+		document.getElementById("start_date_lable").style.display="";
+		document.getElementById("start_date").style.display="";
+
+		document.getElementById("room_id_lable").innerHTML="<b>战斗房间id</b>";
+		document.getElementById("room_id_lable").style.display="";
+		document.getElementById("room_id_textedit").style.display="";
+
+		break;
+	default:
+		document.getElementById("start_date_lable").innerHTML="<b>启动游戏时间，要精确到小时，分钟填错也没关系</b>";
+		document.getElementById("start_date_lable").style.display="none";
+		document.getElementById("start_date").style.display="none";
+
+		document.getElementById("room_id_lable").innerHTML="<b>战斗房间id</b>";
+		document.getElementById("room_id_lable").style.display="none";
+		document.getElementById("room_id_textedit").style.display="none";
+		break;
+	}
+}
+
+</script>
+	</body>
+
+</html>

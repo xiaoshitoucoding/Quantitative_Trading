@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>量化选股工具</title>
+    <style>
+       #div1{
+            float: left;
+            width: 110px;;
+            height: 500px;
+            /* background-color: brown; */
+            position: absolute;
+            top: 30%;
+            left: 1%;
+            border: 1px;
+           }
+        #div2{
+            float: left;
+            width: 110px;
+            height: 1000px;
+            /* background-color: blueviolet; */
+            position: absolute;
+            left: 16%;
+
+        }
+        a{  
+            text-decoration: none;
+            display: block;
+            width: 150px;
+            height: 50px;
+            margin-left: 10px;
+            font-weight: bold;
+            color:black;
+            margin-top: 10px;
+            text-align: center;
+            padding-top: 22px;
+            box-shadow: 0 0 10px rgba(0,0,0,.3);
+            background-color: burlywood
+
+        }
+        iframe{
+            width: 1700px;
+            height: 100%;
+            border: 0px;
+            
+        }
+    </style>
+
+
+</head>
+<body  >
+    <div id="div1" >
+        <!-- 引入入网站绝对地址 -->
+        <a href="IncreaseVolume" target="iframe_codm">成交量倍增策略 </a>
+        <a href="BreakAndVolume" target="iframe_codm">海龟突破策略 </a>
+        <a href="StockShape" target="iframe_codm">形态策略 </a>
+        <a href="IndustryInfo" target="iframe_codm">板块信息 </a>
+        <a href="ChilliPepper" target="iframe_codm">朝天椒 </a>
+    </div>
+    <div id="div2">
+        <!-- 内联框架引入网站地址 -->
+        <iframe src="IncreaseVolume" name="iframe_codm">成交量倍增策略</iframe>
+    </div>
+    
+</body>
+</html>

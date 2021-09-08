@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<title>海龟突破策略 </title>
+
+	{% include "header.html" %}
+
+	{% load static %}
+
+</head>
+
+<body class="bg-cyan"  style="background-image: url({% static 'background1.jpg' %}), url({% static 'background2.jpg' %});  background-size:20% 20%;background-repeat:no-repeat; background-position:left top,right top;">
+	
+	
+	<div class="body body-s">
+		<div class="font_bk"> 
+			<h4>海龟突破策略:</h3>
+			<h5>价格突破近期x天的最高价，同时伴随的成交量的增长</h5> 
+			<br>
+			<h5>价格突破周期:表示当天的收盘价需要突破X天内最高的收盘价</h5> 
+			<h5>突破当天成交量的排名:将突破X天内所有的成交量进行排序, 并映射到[-1,1]区间. -1表示成交量最小，1表示成交量最大</h5> 
+			
+		</div>
+		<form id="sky-form" class="sky-form" autocomplete="off" action="" method="post" target="id_iframe" onsubmit="return check()">
+			
+			{% csrf_token %}
+			<header><b>海龟突破策略 </b></header>
+			<fieldset>	
+				<section>
+					<label class="select">
+						<select name="env" id="env">
+							<option value="USA">美股</option>
+							<option value="CN">A股</option>
+						</select>
+						<i></i>
+					</label>
+				</section>
+				
+				<section>
+					<label id="label4"><b>公司市值(亿):</b></label>
+					<br />
+					{{ break_form.total_asset }}
+				</section>
+
+				<section>
+					<label id="label1"><b>价格突破周期(天):</b></label>
+					<br />
+					{{ break_form.xd }}
+				</section>
+
+				<section>
+					<label id="label2"><b>突破当天成交量的排名最小值(排名范围:-1 ~ 1. 将突破周期内的成交量进行排序):</b></label>
+					<br />
+					{{ break_form.volume_rank_min }}
+				</section>
+
+				<!-- <section>
+					<label id="label3"><b>突破当天成交量的排名最大值(排名范围:-1 ~ 1. 将突破周期内的成交量进行排序):</b></label>
+					<br />
+					{{ break_form.volume_rank_max }}
+				</section> -->
+
+				
+
+				<br />
+				<input  name="submit" type="submit" class="button" value="提交修改(Submit)" >
+			</fieldset>
+
+
+			<footer>   
+				<h3>结果(Result)</h3> 
+				<iframe id="id_iframe" name="id_iframe"  onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"  width="1040" height="500" frameborder="no" border="0" scrolling="no" src="about:blank"></iframe>
+			</footer>
+			</form>
+
+			
+
+	
+
+	</div>
+
+	
+</body>
+
+</html>

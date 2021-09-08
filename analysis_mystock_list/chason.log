@@ -1,0 +1,14 @@
+       code stock_name trd_side  ... remark time_in_force  fill_outside_rth
+301   US.BB         黑莓      BUY  ...                  DAY              True
+235   US.BB         黑莓      BUY  ...                  DAY              True
+289   US.BB         黑莓      BUY  ...                  DAY              True
+246   US.BB         黑莓      BUY  ...                  DAY              True
+247   US.BB         黑莓      BUY  ...                  DAY              True
+..      ...        ...      ...  ...    ...           ...               ...
+215  US.AMC      AMC院线      BUY  ...                  DAY              True
+218  US.AMC      AMC院线      BUY  ...                  DAY              True
+216  US.AMC      AMC院线      BUY  ...                  DAY              True
+217  US.AMC      AMC院线      BUY  ...                  DAY              True
+221  US.AMC      AMC院线     SELL  ...                  DAY              True
+
+[319 rows x 16 columns]

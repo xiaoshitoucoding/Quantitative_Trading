@@ -1,0 +1,548 @@
+﻿<!DOCTYPE html> 
+<html>
+	<head>
+		<title>后台数据修改工具</title>
+		
+		{% include "header.html" %}
+	</head>
+	
+	<body class="bg-cyan" >
+		<div class="body body-s">	
+			<form  id="sky-form" class="sky-form" autocomplete="off" action="" method="post" target="id_iframe" onsubmit="return check()">
+			{% csrf_token %}	
+				<header><b>后台数据修改工具</b></header>
+				
+				{% include "serverlist.html" %}
+				 <fieldset>
+                        <section>
+						<label class="select">
+					    <select name="type" onchange= "changeUI(this.options[this.options.selectedIndex].value)">
+                            <option value="LADDERSCORE">设置天梯ladder score</option>
+                            <option value="HIDDENSCORE">设置天梯隐藏的hidden score</option>
+                            <option value="GETLADDER">获取天梯信息</option>
+                            <option value="RANKFIX">排位分修正</option> <!--  排位分修正测试 -->
+                        </select>
+							<i></i>
+						</label>
+					</section>
+					
+
+					
+					<section>
+					<label id="label1" ><b>PlayerId</b></label>
+						<label class="input">
+						
+							<i class="icon-append icon-user"></i>  
+							
+							<input id="OpenID" type="text" name="OpenID" value="">
+							<b class="tooltip tooltip-bottom-right">这里是PlayerId，不清楚请联系chasonchen(This is PlayerID, please contact chasonchen if any questions.)</b>
+						</label>
+					</section>
+					
+					<section>
+					    <label id="label2"><b>ladder score</b></label>
+						<label class="input">
+						<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+							<input id="textedit2" type="text" name="value1" value="">
+						</label>
+					</section>
+					
+					<section>
+					    <label id="label3" style="display:none;" ><b>数值2(Value2)</b></label>
+						<label class="input">
+						<!--	<i class="icon-append icon-lock"></i>    -->
+							<input id="textedit3" type="text" name="value2" style="display:none;" value="" >
+						</label>
+					</section>
+
+					<a href="getGameNick.html"  ><b>查询(Search)PlayerId<b></a>
+					<br/>
+					<input name="submit" type="submit" class="button" value="提交修改(Submit)">
+					<a href="index.html"><input name="submit2" type="button" class="button" value="返回" onClick="back()"></a>
+				</fieldset>
+				<hr/>
+				<br/>	
+				<br/>	
+				<br/>	
+				<footer>   
+                        <h3>结果(Result)</h3> 
+                        <iframe id="id_iframe" name="id_iframe"  onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"  width="850"  frameborder="no" border="0" scrolling="no" src="about:blank"></iframe>
+				</footer>
+
+			</form>			
+	  </div>
+<script type="text/javascript">
+var picindex=3;
+function check()
+{
+
+  
+  var OpenID = document.getElementById("OpenID").value;
+  var value1 = document.getElementById("textedit2").value;
+  var value2 = document.getElementById("textedit3").value;
+  
+ if($('input:radio:checked').val()=="MTest")
+ {
+   //  alert("目前是韩国人使用版本，禁止修改");
+    // return false;
+ }
+  
+  if(isNaN(value1) ||isNaN(value2))
+  {
+      alert("请用数值");
+     return false;
+  }
+ if(OpenID=="")
+ {
+     alert("OpenID没填");
+     return false;
+ }
+
+}
+
+
+
+function changeUI(val)
+{
+  
+ /* i%=14;
+  i++;
+  var imgsrc = "url(../static/img/"+i+".jpg";
+  //$("body").animate({"opacity": 0},"slow");
+  //$("body").fadeOut(200);
+ // $("body").fadeToggle();
+  $("body").css("background-image",imgsrc);*/
+ // $("body").fadeToggle("slow");
+  //$("body").fadeIn(500);
+ /*$('body').fadeTo('slow', 0.3, function()
+ {
+ $(this).css('background-image', imgsrc);
+ }).delay(1000).fadeTo('slow', 1);*/
+  switch(val)
+  {
+       // 添加排位分修正
+      case 'RANKFIX':  
+            document.getElementById("label2").innerHTML="score_value";
+            document.getElementById("label2").style.display="";
+            document.getElementById("textedit2").style.display="";
+            
+            document.getElementById("label3").innerHTML="result_value";
+            document.getElementById("label3").style.display="";
+            document.getElementById("textedit3").style.display="";       
+    
+            document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+            document.getElementById("textedit4").style.display="none";       
+      case 'LADDERSCORE':
+	        document.getElementById("label2").innerHTML="<b>天梯ladder score</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+	
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+
+      case 'HIDDENSCORE':
+	        document.getElementById("label2").innerHTML="<b>天梯hidden score</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;
+	
+	case 'GETLADDER':
+	        document.getElementById("label2").innerHTML=""
+            document.getElementById("label2").style.display="none";
+			document.getElementById("textedit2").style.display="none";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;
+
+	  case 'DIAMOND':
+	        document.getElementById("label2").innerHTML="<b>钻石</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;	 
+			 
+	  case 'GOLD':
+	        document.getElementById("label2").innerHTML="<b>金币</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	  case 'WEAPON':
+	        document.getElementById("label2").innerHTML="<b>道具ID(Item ID)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="<b>道具留存时间(Retention time of items)</b>";
+            document.getElementById("label4").style.display="";
+			document.getElementById("textedit4").style.display="";		 
+	         break;		
+	case 'GUILDEXP':
+	        document.getElementById("label2").innerHTML="<b>工会经验(XP)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;		
+	case 'DAILYITEM':
+	        document.getElementById("label2").innerHTML="<b>日获得道具数目(Number of daily acquired items)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;		
+
+	case 'DAILYEXP':
+	        document.getElementById("label2").innerHTML="<b>日获得经验(XP)数</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;		
+
+	case 'DAILYGOLD':
+	        document.getElementById("label2").innerHTML="<b>日获得金币数(Daily acquired Credits)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;		
+
+	case 'MATCHMMR':
+	        document.getElementById("label2").innerHTML="<b>匹配值(Matcmaking value)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;		
+
+	case 'UNLOCKEDPIC':
+	        document.getElementById("label2").innerHTML="<b>头像ID</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;		
+
+
+	case 'DEFAULT':
+	        document.getElementById("label2").innerHTML="";
+            document.getElementById("label2").style.display="none";
+			document.getElementById("textedit2").style.display="none";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;		
+
+
+	case 'GUILDGOLD':
+	        document.getElementById("label2").innerHTML="<b>工会金币(Clan Credits)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;		
+
+	case 'APVPGOLD':
+	        document.getElementById("label2").innerHTML="<b>APVP排位赛金币(APVP Ranked Match Credits)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";		 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+			break;
+
+      case 'ACTIVEPOINTS':
+          document.getElementById("label2").innerHTML = "<b>活动的活跃点数(Event Activity Points)</b>";
+          document.getElementById("label2").style.display = "";
+          document.getElementById("textedit2").style.display = "";
+
+          document.getElementById("label3").innerHTML = "";
+          document.getElementById("label3").style.display = "none";
+          document.getElementById("textedit3").style.display = "none";
+
+          document.getElementById("label4").innerHTML = "";
+          document.getElementById("label4").style.display = "none";
+          document.getElementById("textedit4").style.display = "none";
+          break;
+
+
+	  case 'EXPERT_POINT':
+	        document.getElementById("label2").innerHTML="<b>专精点</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	  case 'ADD_PROP_HOUR':
+	        document.getElementById("label2").innerHTML="<b>道具ID(Item ID)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="<b>道具时限(秒)</b>";
+            document.getElementById("label3").style.display="";
+			document.getElementById("textedit3").style.display=""; 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;		
+	 case 'ADD_PROP':
+	        document.getElementById("label2").innerHTML="<b>道具ID(Item ID)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="<b>道具数量</b>";
+            document.getElementById("label3").style.display="";
+			document.getElementById("textedit3").style.display=""; 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	         break;
+	  case 'ADD_ACH':
+	        document.getElementById("label2").innerHTML="<b>成就ID</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="<b>成就等级</b>";
+            document.getElementById("label3").style.display="";
+			document.getElementById("textedit3").style.display="";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	  case 'CLEAR_DATA':
+	        document.getElementById("label2").innerHTML="";
+            document.getElementById("label2").style.display="none";
+			document.getElementById("textedit2").style.display="none";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	  case 'OPEN_CHAPTER':
+	        document.getElementById("label2").innerHTML="";
+            document.getElementById("label2").style.display="none";
+			document.getElementById("textedit2").style.display="none";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	  case 'DONE_NEWER_TASK':
+	        document.getElementById("label2").innerHTML="";
+            document.getElementById("label2").style.display="none";
+			document.getElementById("textedit2").style.display="none";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	  case 'WEAPON_POINT':
+	        document.getElementById("label2").innerHTML="<b>武器精通点</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	   case 'TECH_POINT':
+	        document.getElementById("label2").innerHTML="<b>科技点</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	  case 'SET_RANK':
+	        document.getElementById("label2").innerHTML="<b>排位赛积分</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	  case 'GOOD_LUCK':
+	        document.getElementById("label2").innerHTML="<b>火线幸运币</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	 case 'SET_PUNISH':
+	        document.getElementById("label2").innerHTML="<b>惩罚类型</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="<b>惩罚时间（unix时间秒数）</b>";
+            document.getElementById("label3").style.display="";
+			document.getElementById("textedit3").style.display=""; 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+	case 'UNSET_PUNISH':
+	        document.getElementById("label2").innerHTML="<b>取消惩罚类型</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+			
+			document.getElementById("label3").innerHTML="<b>取消惩罚时间（unix时间秒数）</b>";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none"; 
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+	        break;
+    	  case 'ADD_VIP':
+	        document.getElementById("label2").innerHTML="<b>加VIP</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+
+			document.getElementById("label4").innerHTML="";
+            document.getElementById("label4").style.display="none";
+			document.getElementById("textedit4").style.display="none";		 
+			break;
+		  case 'CHANGE_EVN':
+	        document.getElementById("label2").innerHTML="<b>切换IDIP环境(Switch IDIP Context)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+  }
+
+}
+
+</script>	
+</body>
+</html>

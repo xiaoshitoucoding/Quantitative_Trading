@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html> 
+<html>
+	<head>
+		<title>经分日志解释</title>
+		
+		{% include "header.html" %}
+	</head>
+	
+	<body class="bg-cyan" >
+		<div class="body body-s">	
+			<form  enctype="multipart/form-data" id="sky-form" class="sky-form" autocomplete="off" action="" method="post" target="id_iframe" >
+			{% csrf_token %}
+				<header><b>经分日志解释</b></header>
+				<fieldset>
+
+				 <section>
+					<label id="label1"><b>填经分日志内容，可填多条，用回车间隔开</b></label>
+					<section>
+					<!--	<i class="icon-append icon-envelope-alt"></i>    -->
+						<textarea  name="content" style="width:850px;height:200px;"></textarea>
+					</section>
+				</section>
+
+
+					 <section>
+							<b>具体操作</b>
+							<label class="select">
+							<select name="op_type" onchange= "changeOpUI(this.options[this.options.selectedIndex].value)">
+								<option value="check">解释经分日志</option>
+							</select>
+								<i></i>
+							</label>
+						    <input name="levelsm" type="submit" class="button" value="执行">
+					</section>
+				 </fieldset>
+				<footer>
+                        <h3>结果(Result)</h3>
+                        <iframe id="id_iframe" name="id_iframe"  onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"  width="850" height="768" frameborder="no" border="0" scrolling="yes" src="about:blank"></iframe>
+				</footer>
+			</form>			
+	  </div>
+
+
+<script type="text/javascript">
+
+function changeOpUI(val)
+{
+  switch(val)
+  {
+      case 'EXP':
+	        document.getElementById("label2").innerHTML="<b>经验(XP)</b>";
+            document.getElementById("label2").style.display="";
+			document.getElementById("textedit2").style.display="";
+
+			document.getElementById("label3").innerHTML="";
+            document.getElementById("label3").style.display="none";
+			document.getElementById("textedit3").style.display="none";
+	         break;
+
+  }
+}
+
+</script>
+	</body>
+
+</html>
