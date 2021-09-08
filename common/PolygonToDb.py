@@ -82,7 +82,7 @@ def GetTodayCNStockFromBaoStock():
     end_date = GetTomorrow()
     print('start_date:', start_date)
     print('end_date:', end_date)
-    # CNBaoStock.cn_historystock_download_data(start_date, end_date)
+    CNBaoStock.cn_historystock_download_data(start_date, end_date)
 
 
 def GetCNStockIndustryFromBaoStock():
