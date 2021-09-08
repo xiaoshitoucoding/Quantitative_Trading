@@ -1,0 +1,6 @@
+{'xd': 60, 'class': FactorBuyBreak}  今天的收盘价格达到xd天内最高价格，则明天买入
+{'stop_loss_n': 1.0, 'stop_win_n': 3.0, 'class': FactorAtrNStop}    止盈event：截止今天相比买入时的收益 * 买入时的期望方向 > n倍stopbase
+                                                                    止损event：截止今天相比买入时的收益 * 买入时的期望方向 < -n倍stopbase
+                                                                    目前stop_base = today.atr21 + today.atr14
+{'class': FactorPreAtrNStop, 'pre_atr_n': 1.5} ===  只要今天的收盘价格比昨天收盘价格差大于一个差值就止损卖出，差值= today.atr21 * pre_atr_n
+{'class': FactorCloseAtrNStop, 'close_atr_n': 1.5}：卖出择时示例因子： 较小利润值 < 买入后最大收益价格 - 今日价格 < 较大利润值
